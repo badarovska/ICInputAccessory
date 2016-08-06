@@ -52,31 +52,31 @@ extension ICTokenField {
 
     layer.cornerRadius = 5
     layer.shouldRasterize = true
-    layer.rasterizationScale = UIScreen.mainScreen().scale
+    layer.rasterizationScale = UIScreen.main().scale
     backgroundColor = UIColor(red:0.8, green:0.32, blue:0.24, alpha:1)
 
-    textField.textColor = UIColor.whiteColor()
-    textField.tintColor = UIColor.whiteColor()
-    textField.font = UIFont.boldSystemFontOfSize(14)
+    textField.textColor = UIColor.white()
+    textField.tintColor = UIColor.white()
+    textField.font = UIFont.boldSystemFont(ofSize: 14)
 
-    attributedPlaceholder = NSAttributedString(
+    attributedPlaceholder = AttributedString(
       string: String(self.dynamicType),
       attributes: [
-        NSForegroundColorAttributeName: UIColor.whiteColor().colorWithAlphaComponent(0.5),
-        NSFontAttributeName: UIFont.boldSystemFontOfSize(14)
+        NSForegroundColorAttributeName: UIColor.white().withAlphaComponent(0.5),
+        NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)
       ]
     )
 
     normalTokenAttributes = [
-      NSForegroundColorAttributeName: UIColor.whiteColor(),
-      NSBackgroundColorAttributeName: UIColor.whiteColor().colorWithAlphaComponent(0.25),
-      NSFontAttributeName: UIFont.boldSystemFontOfSize(14)
+      NSForegroundColorAttributeName: UIColor.white(),
+      NSBackgroundColorAttributeName: UIColor.white().withAlphaComponent(0.25),
+      NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)
     ]
 
     highlightedTokenAttributes = [
       NSForegroundColorAttributeName: UIColor(red:0.8, green:0.32, blue:0.24, alpha:1),
-      NSBackgroundColorAttributeName: UIColor.whiteColor(),
-      NSFontAttributeName: UIFont.boldSystemFontOfSize(14)
+      NSBackgroundColorAttributeName: UIColor.white(),
+      NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)
     ]
   }
 

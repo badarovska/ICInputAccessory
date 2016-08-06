@@ -29,26 +29,26 @@ import UIKit
 class ICInsetLabel: UILabel {
 
   enum CornerRadius {
-    case Dynamic
-    case Constant(CGFloat)
+    case dynamic
+    case constant(CGFloat)
   }
 
   var contentEdgeInsets = UIEdgeInsetsZero
-  var cornerRadius = CornerRadius.Constant(0)
+  var cornerRadius = CornerRadius.constant(0)
 
-  convenience init(contentEdgeInsets: UIEdgeInsets, cornerRadius: CornerRadius = .Constant(0)) {
+  convenience init(contentEdgeInsets: UIEdgeInsets, cornerRadius: CornerRadius = .constant(0)) {
     self.init(frame: CGRect.zero)
     self.contentEdgeInsets = contentEdgeInsets
     self.cornerRadius = cornerRadius
 
     switch cornerRadius {
-    case .Constant(let radius) where radius > 0:
+    case .constant(let radius) where radius > 0:
       layer.cornerRadius = radius
       fallthrough
-    case .Dynamic:
+    case .dynamic:
       layer.masksToBounds = true
       layer.shouldRasterize = true
-      layer.rasterizationScale = UIScreen.mainScreen().scale
+      layer.rasterizationScale = UIScreen.main.scale
     default:
       break
     }
@@ -57,7 +57,7 @@ class ICInsetLabel: UILabel {
   // MARK: - UIView
 
   override func intrinsicContentSize() -> CGSize {
-    let size = super.intrinsicContentSize()
+    let size = super.intrinsicContentSize
     return CGSize(
       width: contentEdgeInsets.left + size.width + contentEdgeInsets.right,
       height: contentEdgeInsets.top + size.height + contentEdgeInsets.bottom
@@ -66,7 +66,7 @@ class ICInsetLabel: UILabel {
 
   override func layoutSubviews() {
     super.layoutSubviews()
-    if case .Dynamic = cornerRadius {
+    if case .dynamic = cornerRadius {
       layer.cornerRadius = frame.height / 2
     }
   }

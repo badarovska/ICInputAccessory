@@ -45,9 +45,9 @@ class ICKeyboardDismissTextFieldUITests: XCTestCase {
     let app = XCUIApplication()
     app.tables.cells.textFields["ICKeyboardDismissTextField"].tap()
 
-    let keyboardWindow = app.childrenMatchingType(.Window).elementBoundByIndex(1)
-    let accessory = keyboardWindow.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).elementBoundByIndex(0)
-    accessory.childrenMatchingType(.Button).element.tap()
+    let keyboardWindow = app.children(matching: .window).element(boundBy: 1)
+    let accessory = keyboardWindow.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 0)
+    accessory.children(matching: .button).element.tap()
   }
 
   func testStoryboard() {
@@ -57,9 +57,9 @@ class ICKeyboardDismissTextFieldUITests: XCTestCase {
     tablesQuery.buttons["Storyboard"].tap()
     tablesQuery.textFields["Storyboard ICKeyboardDismissTextField"].tap()
 
-    let keyboardWindow = app.childrenMatchingType(.Window).elementBoundByIndex(1)
-    let accessory = keyboardWindow.childrenMatchingType(.Other).element.childrenMatchingType(.Other).element.childrenMatchingType(.Other).elementBoundByIndex(0)
-    accessory.childrenMatchingType(.Button).element.tap()
+    let keyboardWindow = app.children(matching: .window).element(boundBy: 1)
+    let accessory = keyboardWindow.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element(boundBy: 0)
+    accessory.children(matching: .button).element.tap()
 
     tablesQuery.buttons["Back to Code"].tap()
   }

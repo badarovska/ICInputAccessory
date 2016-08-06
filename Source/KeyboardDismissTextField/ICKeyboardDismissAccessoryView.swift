@@ -40,14 +40,14 @@ public class ICKeyboardDismissAccessoryView: UIView {
   /// The button to dismiss keyboard.
   public private(set) lazy var dismissButton: UIButton = {
     let _button = UIButton()
-    let resources = NSBundle(forClass: self.dynamicType)
-    let icon = UIImage(named: "icook-iphone-button-hide-keyboard", inBundle: resources, compatibleWithTraitCollection: nil)
-    _button.setImage(icon, forState: .Normal)
+    let resources = Bundle(for: self.dynamicType)
+    let icon = UIImage(named: "icook-iphone-button-hide-keyboard", in: resources, compatibleWith: nil)
+    _button.setImage(icon, for: UIControlState())
     _button.backgroundColor = Constants.ButtonColor
-    _button.exclusiveTouch = true
+    _button.isExclusiveTouch = true
     _button.layer.cornerRadius = 4
     _button.layer.shouldRasterize = true
-    _button.layer.rasterizationScale = UIScreen.mainScreen().scale
+    _button.layer.rasterizationScale = UIScreen.main.scale
     return _button
   }()
 
@@ -73,11 +73,11 @@ public class ICKeyboardDismissAccessoryView: UIView {
 
   // MARK: - UIView
 
-  public override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+  public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     for subview in subviews {
-      if !subview.hidden && subview.alpha > 0 &&
-          subview.userInteractionEnabled &&
-          subview.pointInside(convertPoint(point, toView: subview), withEvent: event) {
+      if !subview.isHidden && subview.alpha > 0 &&
+          subview.isUserInteractionEnabled &&
+          subview.point(inside: convert(point, to: subview), with: event) {
         return true
       }
     }
@@ -86,7 +86,7 @@ public class ICKeyboardDismissAccessoryView: UIView {
 
   // MARK: - NSKeyValueCoding
 
-  public override func setValue(value: AnyObject?, forUndefinedKey key: String) {
+  public override func setValue(_ value: AnyObject?, forUndefinedKey key: String) {
     if let color = value as? UIColor where key == "buttonColor" {
       buttonColor = color
     }
@@ -95,7 +95,7 @@ public class ICKeyboardDismissAccessoryView: UIView {
   // MARK: - Private Methods
 
   private func setUpSubviews() {
-    backgroundColor = UIColor.clearColor()
+    backgroundColor = UIColor.clear
 
     addSubview(dismissButton)
     dismissButton.translatesAutoresizingMaskIntoConstraints = false
@@ -107,14 +107,14 @@ public class ICKeyboardDismissAccessoryView: UIView {
       "padding": Constants.EdgePadding
     ]
 
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-      "H:[button(width)]-(padding)-|",
+    addConstraints(NSLayoutConstraint.constraints(
+      withVisualFormat: "H:[button(width)]-(padding)-|",
       options: [],
       metrics: metrics,
       views: views
     ))
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(
-      "V:[button(height)]-(padding)-|",
+    addConstraints(NSLayoutConstraint.constraints(
+      withVisualFormat: "V:[button(height)]-(padding)-|",
       options: [],
       metrics: metrics,
       views: views

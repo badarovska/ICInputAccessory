@@ -32,19 +32,19 @@ class StoryboardViewController: UITableViewController {
   @IBOutlet weak var tokenField: ICTokenField! {
     didSet {
       tokenField.normalTokenAttributes = [
-        NSForegroundColorAttributeName: UIColor.whiteColor(),
-        NSBackgroundColorAttributeName: UIColor.whiteColor().colorWithAlphaComponent(0.25),
+        NSForegroundColorAttributeName: UIColor.white(),
+        NSBackgroundColorAttributeName: UIColor.white().withAlphaComponent(0.25),
       ]
 
       tokenField.highlightedTokenAttributes = [
-        NSForegroundColorAttributeName: UIColor.darkGrayColor(),
-        NSBackgroundColorAttributeName: UIColor.whiteColor(),
+        NSForegroundColorAttributeName: UIColor.darkGray(),
+        NSBackgroundColorAttributeName: UIColor.white(),
       ]
     }
   }
 
-  @IBAction func dismiss(sender: UIButton) {
-    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+  @IBAction func dismiss(_ sender: UIButton) {
+    presentingViewController?.dismiss(animated: true, completion: nil)
   }
 
 }

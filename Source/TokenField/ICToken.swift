@@ -31,7 +31,7 @@ class ICToken: UIView {
   var text = "" {
     didSet {
       updateTextLabel()
-      frame = CGRect(origin: CGPoint.zero, size: systemLayoutSizeFittingSize(UILayoutFittingCompressedSize))
+      frame = CGRect(origin: CGPoint.zero, size: systemLayoutSizeFitting(UILayoutFittingCompressedSize))
     }
   }
 
@@ -43,7 +43,7 @@ class ICToken: UIView {
 
   var normalTextAttributes: [String : NSObject] = [
     NSForegroundColorAttributeName: UIColor(red:0.14, green:0.38, blue:0.95, alpha:1),
-    NSBackgroundColorAttributeName: UIColor.clearColor()
+    NSBackgroundColorAttributeName: UIColor.clear
   ] {
     didSet {
       if !highlighted { updateTextLabel() }
@@ -52,7 +52,7 @@ class ICToken: UIView {
   }
 
   var highlightedTextAttributes: [String: NSObject] = [
-    NSForegroundColorAttributeName: UIColor.whiteColor(),
+    NSForegroundColorAttributeName: UIColor.white,
     NSBackgroundColorAttributeName: UIColor(red:0.14, green:0.38, blue:0.95, alpha:1)
   ] {
     didSet {
@@ -70,8 +70,8 @@ class ICToken: UIView {
   }()
 
   private(set) lazy var textLabel: UILabel = {
-    let _label = ICInsetLabel(contentEdgeInsets: UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5), cornerRadius: .Constant(3))
-    _label.textAlignment = .Center
+    let _label = ICInsetLabel(contentEdgeInsets: UIEdgeInsets(top: 3, left: 5, bottom: 3, right: 5), cornerRadius: .constant(3))
+    _label.textAlignment = .center
     _label.textColor = self.normalTextAttributes[NSForegroundColorAttributeName] as? UIColor
     _label.backgroundColor = self.normalTextAttributes[NSBackgroundColorAttributeName] as? UIColor
     _label.numberOfLines = 1
@@ -98,7 +98,7 @@ class ICToken: UIView {
     setText(text)
   }
 
-  private func setText(text: String) {
+  private func setText(_ text: String) {
     self.text = text
   }
 
@@ -111,7 +111,7 @@ class ICToken: UIView {
     }
     // Avoid overlapped translucent background colors
     attributes[NSBackgroundColorAttributeName] = nil
-    textLabel.attributedText = NSAttributedString(string: text, attributes: attributes)
+    textLabel.attributedText = AttributedString(string: text, attributes: attributes)
 
     delimiterLabel.textColor = normalTextAttributes[NSForegroundColorAttributeName] as? UIColor
     delimiterLabel.font = normalTextAttributes[NSFontAttributeName] as? UIFont
@@ -127,12 +127,12 @@ class ICToken: UIView {
       "text": textLabel,
       "delimiter": delimiterLabel
     ]
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[text][delimiter]|",
-      options: [.AlignAllCenterY],
+    addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[text][delimiter]|",
+      options: [.alignAllCenterY],
       metrics: nil,
       views: views
     ))
-    addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|-2-[text]-2-|",
+    addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-2-[text]-2-|",
       options: [],
       metrics: nil,
       views: views

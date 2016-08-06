@@ -44,7 +44,7 @@ class ICTokenFieldUITests: XCTestCase {
   func testTokenField() {
     let app = XCUIApplication()
     let tablesQuery = app.tables
-    let textField = tablesQuery.cells.containingType(.StaticText, identifier:"ICTokenField").childrenMatchingType(.TextField).element
+    let textField = tablesQuery.cells.containing(.staticText, identifier:"ICTokenField").children(matching: .textField).element
 
     textField.tap()
     textField.typeText("Try")
@@ -69,7 +69,7 @@ class ICTokenFieldUITests: XCTestCase {
     let app = XCUIApplication()
     app.tables.staticTexts["CustomizedTokenField"].tap()
 
-    let tokenField = app.navigationBars["Example.CustomizedTokenView"].scrollViews.childrenMatchingType(.TextField).element
+    let tokenField = app.navigationBars["Example.CustomizedTokenView"].scrollViews.children(matching: .textField).element
     tokenField.typeText("Try")
     tokenField.typeText(" ")
     tokenField.typeText("iCook")
@@ -93,7 +93,7 @@ class ICTokenFieldUITests: XCTestCase {
     let tablesQuery = app.tables
     tablesQuery.buttons["Storyboard"].tap()
 
-    let tokenField = tablesQuery.cells.containingType(.StaticText, identifier:"Storyboard ICTokenField").childrenMatchingType(.TextField).element
+    let tokenField = tablesQuery.cells.containing(.staticText, identifier:"Storyboard ICTokenField").children(matching: .textField).element
     tokenField.tap()
     tokenField.typeText("Try")
     tokenField.typeText(" ")

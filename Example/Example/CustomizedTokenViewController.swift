@@ -36,34 +36,34 @@ class CustomizedTokenViewController: UIViewController, ICTokenFieldDelegate {
 
   override func loadView() {
     super.loadView()
-    view.backgroundColor = UIColor.whiteColor()
+    view.backgroundColor = UIColor.white
     textView.text = "[\n\n]";
-    textView.font = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+    textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleSubheadline)
     textView.frame = view.bounds.insetBy(dx: 10, dy: 10)
-    textView.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+    textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     view.addSubview(textView)
   }
 
   override func viewDidLoad() {
     super.viewDidLoad()
     navigationController?.navigationBar.barTintColor = UIColor(red:0.96, green:0.48, blue:0.4, alpha:1)
-    navigationController?.navigationBar.translucent = false
-    navigationController?.navigationBar.barStyle = .Black
+    navigationController?.navigationBar.isTranslucent = false
+    navigationController?.navigationBar.barStyle = .black
 
-    let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .Cancel, target: self, action: .dismiss)
-    cancelBarButton.tintColor = UIColor.whiteColor()
+    let cancelBarButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: .dismiss)
+    cancelBarButton.tintColor = UIColor.white
     navigationItem.rightBarButtonItem = cancelBarButton
 
     navigationItem.titleView = tokenField
     tokenField.delegate = self
   }
 
-  override func viewWillAppear(animated: Bool) {
+  override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tokenField.becomeFirstResponder()
   }
 
-  override func viewWillDisappear(animated: Bool) {
+  override func viewWillDisappear(_ animated: Bool) {
     super.viewWillAppear(animated)
     tokenField.resignFirstResponder()
     textView.endEditing(true)
@@ -71,38 +71,38 @@ class CustomizedTokenViewController: UIViewController, ICTokenFieldDelegate {
 
   // MARK: - ICTokenFieldDelegate
 
-  func tokenFieldDidBeginEditing(tokenField: ICTokenField) {
+  func tokenFieldDidBeginEditing(_ tokenField: ICTokenField) {
     print(#function)
   }
 
-  func tokenFieldDidEndEditing(tokenField: ICTokenField) {
+  func tokenFieldDidEndEditing(_ tokenField: ICTokenField) {
     print(#function)
   }
 
-  func tokenFieldWillReturn(tokenField: ICTokenField) {
+  func tokenFieldWillReturn(_ tokenField: ICTokenField) {
     print(#function)
   }
 
-  func tokenField(tokenField: ICTokenField, didEnterText text: String) {
+  func tokenField(_ tokenField: ICTokenField, didEnterText text: String) {
     print("Add: \"\(text)\"")
     updateTexts()
   }
 
-  func tokenField(tokenField: ICTokenField, didDeleteText text: String, atIndex index: Int) {
+  func tokenField(_ tokenField: ICTokenField, didDeleteText text: String, atIndex index: Int) {
     print("Delete: \"\(text)\"")
     updateTexts()
   }
 
   // MARK: - UIResponder Callbacks
 
-  @objc private func dismiss(sender: UIBarButtonItem) {
-    presentingViewController?.dismissViewControllerAnimated(true, completion: nil)
+  @objc private func dismiss(_ sender: UIBarButtonItem) {
+    presentingViewController?.dismiss(animated: true, completion: nil)
   }
 
   // MARK: - Private Methods
 
   private func updateTexts() {
-    textView.text = "[\n  " + tokenField.texts.map { "\"" + $0 + "\"" } .joinWithSeparator(",\n  ") + "\n]"
+    textView.text = "[\n  " + tokenField.texts.map { "\"" + $0 + "\"" } .joined(separator: ",\n  ") + "\n]"
   }
 
 }

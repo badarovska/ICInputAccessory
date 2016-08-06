@@ -36,14 +36,14 @@ class ExampleCell: UITableViewCell {
         displayingView.translatesAutoresizingMaskIntoConstraints = false
 
         if #available(iOS 9.0, *) {
-          displayingView.topAnchor.constraintEqualToAnchor(contentView.topAnchor).active = true
-          displayingView.leftAnchor.constraintEqualToAnchor(contentView.leftAnchor).active = true
-          displayingView.bottomAnchor.constraintEqualToAnchor(contentView.bottomAnchor).active = true
-          displayingView.rightAnchor.constraintEqualToAnchor(contentView.rightAnchor).active = true
+          displayingView.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+          displayingView.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+          displayingView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+          displayingView.rightAnchor.constraint(equalTo: contentView.rightAnchor).isActive = true
         } else {
           let views = ["view": displayingView]
-          contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("H:|[view]|", options: [], metrics: nil, views: views))
-          contentView.addConstraints(NSLayoutConstraint.constraintsWithVisualFormat("V:|[view]|", options: [], metrics: nil, views: views))
+          contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: [], metrics: nil, views: views))
+          contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: [], metrics: nil, views: views))
         }
       }
     }
@@ -56,7 +56,7 @@ class ExampleCell: UITableViewCell {
     showcase?.removeFromSuperview()
     showcase = nil
     textLabel?.text = nil
-    accessoryType = .None
+    accessoryType = .none
   }
 
 }

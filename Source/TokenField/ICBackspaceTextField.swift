@@ -27,7 +27,7 @@
 import UIKit
 
 protocol ICBackspaceTextFieldDelegate: class {
-  func textFieldShouldDelete(textField: ICBackspaceTextField) -> Bool
+  func textFieldShouldDelete(_ textField: ICBackspaceTextField) -> Bool
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,7 +41,7 @@ class ICBackspaceTextField: UITextField {
     didSet {
       // Trigger the lazy instantiation of cursorColor
       let color = cursorColor
-      tintColor = showsCursor ? color : UIColor.clearColor()
+      tintColor = showsCursor ? color : UIColor.clear
     }
   }
 
@@ -49,14 +49,14 @@ class ICBackspaceTextField: UITextField {
 
   // MARK: - UIView
 
-  override func pointInside(point: CGPoint, withEvent event: UIEvent?) -> Bool {
+  override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     // Forward touches to the superview when the cursor is hidden.
-    return showsCursor && super.pointInside(point, withEvent: event)
+    return showsCursor && super.point(inside: point, with: event)
   }
 
   // MARK: - UITextField
 
-  func keyboardInputShouldDelete(textField: UITextField) -> Bool {
+  func keyboardInputShouldDelete(_ textField: UITextField) -> Bool {
     return backspaceDelegate?.textFieldShouldDelete(self) ?? true
   }
 
