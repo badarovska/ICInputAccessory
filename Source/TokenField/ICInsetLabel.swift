@@ -33,7 +33,7 @@ class ICInsetLabel: UILabel {
     case constant(CGFloat)
   }
 
-  var contentEdgeInsets = UIEdgeInsetsZero
+  var contentEdgeInsets = UIEdgeInsets.zero
   var cornerRadius = CornerRadius.constant(0)
 
   convenience init(contentEdgeInsets: UIEdgeInsets, cornerRadius: CornerRadius = .constant(0)) {
@@ -56,7 +56,7 @@ class ICInsetLabel: UILabel {
 
   // MARK: - UIView
 
-  override func intrinsicContentSize() -> CGSize {
+  override var intrinsicContentSize: CGSize {
     let size = super.intrinsicContentSize
     return CGSize(
       width: contentEdgeInsets.left + size.width + contentEdgeInsets.right,

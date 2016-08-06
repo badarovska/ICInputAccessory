@@ -32,13 +32,13 @@ class StoryboardViewController: UITableViewController {
   @IBOutlet weak var tokenField: ICTokenField! {
     didSet {
       tokenField.normalTokenAttributes = [
-        NSForegroundColorAttributeName: UIColor.white(),
-        NSBackgroundColorAttributeName: UIColor.white().withAlphaComponent(0.25),
+        NSForegroundColorAttributeName: UIColor.white,
+        NSBackgroundColorAttributeName: UIColor.white.withAlphaComponent(0.25),
       ]
 
       tokenField.highlightedTokenAttributes = [
-        NSForegroundColorAttributeName: UIColor.darkGray(),
-        NSBackgroundColorAttributeName: UIColor.white(),
+        NSForegroundColorAttributeName: UIColor.darkGray,
+        NSBackgroundColorAttributeName: UIColor.white,
       ]
     }
   }

@@ -111,7 +111,7 @@ class ICToken: UIView {
     }
     // Avoid overlapped translucent background colors
     attributes[NSBackgroundColorAttributeName] = nil
-    textLabel.attributedText = AttributedString(string: text, attributes: attributes)
+    textLabel.attributedText = NSAttributedString(string: text, attributes: attributes)
 
     delimiterLabel.textColor = normalTextAttributes[NSForegroundColorAttributeName] as? UIColor
     delimiterLabel.font = normalTextAttributes[NSFontAttributeName] as? UIFont

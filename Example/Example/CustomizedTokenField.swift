@@ -52,30 +52,30 @@ extension ICTokenField {
 
     layer.cornerRadius = 5
     layer.shouldRasterize = true
-    layer.rasterizationScale = UIScreen.main().scale
+    layer.rasterizationScale = UIScreen.main.scale
     backgroundColor = UIColor(red:0.8, green:0.32, blue:0.24, alpha:1)
 
-    textField.textColor = UIColor.white()
-    textField.tintColor = UIColor.white()
+    textField.textColor = UIColor.white
+    textField.tintColor = UIColor.white
     textField.font = UIFont.boldSystemFont(ofSize: 14)
 
-    attributedPlaceholder = AttributedString(
+    attributedPlaceholder = NSAttributedString(
       string: String(self.dynamicType),
       attributes: [
-        NSForegroundColorAttributeName: UIColor.white().withAlphaComponent(0.5),
+        NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.5),
         NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)
       ]
     )
 
     normalTokenAttributes = [
-      NSForegroundColorAttributeName: UIColor.white(),
-      NSBackgroundColorAttributeName: UIColor.white().withAlphaComponent(0.25),
+      NSForegroundColorAttributeName: UIColor.white,
+      NSBackgroundColorAttributeName: UIColor.white.withAlphaComponent(0.25),
       NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)
     ]
 
     highlightedTokenAttributes = [
       NSForegroundColorAttributeName: UIColor(red:0.8, green:0.32, blue:0.24, alpha:1),
-      NSBackgroundColorAttributeName: UIColor.white(),
+      NSBackgroundColorAttributeName: UIColor.white,
       NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)
     ]
   }

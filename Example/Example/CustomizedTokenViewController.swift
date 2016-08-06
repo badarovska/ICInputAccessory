@@ -60,12 +60,12 @@ class CustomizedTokenViewController: UIViewController, ICTokenFieldDelegate {
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    tokenField.becomeFirstResponder()
+    _ = tokenField.becomeFirstResponder()
   }
 
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    tokenField.resignFirstResponder()
+    _ = tokenField.resignFirstResponder()
     textView.endEditing(true)
   }
 
@@ -102,7 +102,8 @@ class CustomizedTokenViewController: UIViewController, ICTokenFieldDelegate {
   // MARK: - Private Methods
 
   private func updateTexts() {
-    textView.text = "[\n  " + tokenField.texts.map { "\"" + $0 + "\"" } .joined(separator: ",\n  ") + "\n]"
+    let tokens = tokenField.texts.map { "\"" + $0 + "\"" } .joined(separator: ",\n  ")
+    textView.text = "[\n  " + tokens + "\n]"
   }
 
 }

@@ -87,7 +87,7 @@ public class ICKeyboardDismissAccessoryView: UIView {
   // MARK: - NSKeyValueCoding
 
   public override func setValue(_ value: AnyObject?, forUndefinedKey key: String) {
-    if let color = value as? UIColor where key == "buttonColor" {
+    if let color = value as? UIColor, key == "buttonColor" {
       buttonColor = color
     }
   }

@@ -84,7 +84,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
     }
     set {
       if let text = newValue {
-        attributedPlaceholder = AttributedString(
+        attributedPlaceholder = NSAttributedString(
           string: text,
           attributes: [NSForegroundColorAttributeName: UIColor(red: 0.78, green: 0.78, blue: 0.80, alpha: 0.9)]
         )
@@ -97,7 +97,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
   // MARK: - UI Customization
 
   /// The placeholder with customized attributes.
-  public var attributedPlaceholder: AttributedString? {
+  public var attributedPlaceholder: NSAttributedString? {
     didSet {
       guard let attributedText = attributedPlaceholder else {
         placeholderLabel.text = nil
@@ -223,7 +223,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
 
   // MARK: - UIResponder
 
-  public override func isFirstResponder() -> Bool {
+  public override var isFirstResponder: Bool {
     return inputTextField.isFirstResponder || super.isFirstResponder
   }
 
@@ -279,12 +279,12 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
   }
 
   public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-    removeHighlightedToken()  // as user starts typing when a token is focused
+    _ = removeHighlightedToken()  // as user starts typing when a token is focused
     inputTextField.showsCursor = true
 
-    guard let
-      input = textField.text,
-      text: NSString = (input as NSString).replacingCharacters(in: range, with: string)
+    guard
+      let input = textField.text,
+      let text: NSString = (input as NSString).replacingCharacters(in: range, with: string)
     else {
       return true
     }
@@ -323,11 +323,11 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
     }
 
     if !textField.showsCursor {
-      removeHighlightedToken()
+      _ = removeHighlightedToken()
       return true
     }
 
-    if let text = textField.text where text.isEmpty {
+    if let text = textField.text, text.isEmpty {
       textField.showsCursor = false
       tokens.last?.highlighted = true
     }
@@ -342,7 +342,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
   }
 
   @objc private func handleTapGesture(_ sender: UITapGestureRecognizer) {
-    if !isFirstResponder() {
+    if !isFirstResponder {
       inputTextField.becomeFirstResponder()
     }
 
@@ -434,7 +434,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
 
   /// Creates a token with the current input text.
   public func completeCurrentInputText() {
-    guard let text = inputTextField.text where !text.isEmpty else {
+    guard let text = inputTextField.text, !text.isEmpty else {
       return
     }
     inputTextField.text = nil

@@ -56,7 +56,7 @@ class ExampleViewController: UITableViewController {
     super.loadView()
     tableView.register(ExampleCell.self, forCellReuseIdentifier: NSStringFromClass(ExampleCell.self))
     tableView.tableFooterView = flipButton
-    tableView.tableFooterView?.isUserInteractionEnabled
+    tableView.tableFooterView?.isUserInteractionEnabled = true
   }
 
   // MARK: - UITableViewDataSource
@@ -86,7 +86,7 @@ class ExampleViewController: UITableViewController {
     let cell = tableView.dequeueReusableCell(withIdentifier: NSStringFromClass(ExampleCell.self), for: indexPath)
     switch types[(indexPath as NSIndexPath).section] {
     case let type as ICKeyboardDismissTextField.Type:
-      let textField = type.`init`(boundsSize:requestHandler:)()
+      let textField = type.init()
       textField.leftViewMode = .always
       textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
       textField.placeholder = String(type)
@@ -98,7 +98,7 @@ class ExampleViewController: UITableViewController {
 
     case let type as ICTokenField.Type:
       let container = UIView(frame: cell.bounds)
-      let tokenField = type.`init`(boundsSize:requestHandler:)()
+      let tokenField = type.init()
       tokenField.placeholder = String(type)
       tokenField.frame = container.bounds.insetBy(dx: 5, dy: 0)
       tokenField.autoresizingMask = [.flexibleWidth, .flexibleHeight]
