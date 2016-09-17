@@ -89,17 +89,17 @@ class ExampleViewController: UITableViewController {
       let textField = type.init()
       textField.leftViewMode = .always
       textField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 15, height: 15))
-      textField.placeholder = String(type)
+      textField.placeholder = String(describing: type)
       (cell as? ExampleCell)?.showcase = textField
 
     case let type as CustomizedTokenField.Type:
-      cell.textLabel?.text = String(type)
+      cell.textLabel?.text = String(describing: type)
       cell.accessoryType = .disclosureIndicator
 
     case let type as ICTokenField.Type:
       let container = UIView(frame: cell.bounds)
       let tokenField = type.init()
-      tokenField.placeholder = String(type)
+      tokenField.placeholder = String(describing: type)
       tokenField.frame = container.bounds.insetBy(dx: 5, dy: 0)
       tokenField.autoresizingMask = [.flexibleWidth, .flexibleHeight]
       container.addSubview(tokenField)
@@ -125,7 +125,7 @@ class ExampleViewController: UITableViewController {
 
   // MARK: - UIResponder Callbacks
 
-  @objc private func showStoryboard(_ sender: UIButton) {
+  @objc fileprivate func showStoryboard(_ sender: UIButton) {
     if let controller = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateInitialViewController() {
       controller.modalTransitionStyle = .flipHorizontal
       present(controller, animated: true, completion: nil)

@@ -62,7 +62,7 @@ public class ICKeyboardDismissTextField: UITextField {
     return super.becomeFirstResponder()
   }
 
-  @objc private func dismiss(_ sender: UIButton) {
+  @objc fileprivate func dismiss(_ sender: UIButton) {
     resignFirstResponder()
     UIView.animate(withDuration: 0.3) {
       self.keyboardAccessoryView.alpha = 0

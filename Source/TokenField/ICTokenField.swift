@@ -245,7 +245,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
 
   // MARK: - NSKeyValueCoding
 
-  public override func setValue(_ value: AnyObject?, forUndefinedKey key: String) {
+  public override func setValue(_ value: Any?, forKey key: String) {
     switch value {
     case let image as UIImage? where key == "icon":
       icon = image
@@ -282,16 +282,15 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
     _ = removeHighlightedToken()  // as user starts typing when a token is focused
     inputTextField.showsCursor = true
 
-    guard
-      let input = textField.text,
-      let text: NSString = (input as NSString).replacingCharacters(in: range, with: string)
-    else {
+    guard let input = textField.text else {
       return true
     }
 
-    for delimiter in delimiters as [NSString] {
-      let index = text.length - delimiter.length
-      if 0 < index && text.substring(from: index) == delimiter {
+    let text = (input as NSString).replacingCharacters(in: range, with: string)
+
+    for delimiter in delimiters {
+      if text.hasSuffix(delimiter) {
+        let index = text.index(text.endIndex, offsetBy: -delimiter.characters.count)
         let newToken = text.substring(to: index)
         textField.text = nil
 
@@ -336,12 +335,12 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
 
   // MARK: - UIResponder Callbacks
 
-  @objc private func togglePlaceholderIfNeeded(_ sender: UITextField? = nil) {
+  @objc fileprivate func togglePlaceholderIfNeeded(_ sender: UITextField? = nil) {
     let showsPlaceholder = tokens.isEmpty && (inputTextField.text?.isEmpty ?? true)
     placeholderLabel.isHidden = !showsPlaceholder
   }
 
-  @objc private func handleTapGesture(_ sender: UITapGestureRecognizer) {
+  @objc fileprivate func handleTapGesture(_ sender: UITapGestureRecognizer) {
     if !isFirstResponder {
       inputTextField.becomeFirstResponder()
     }

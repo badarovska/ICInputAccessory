@@ -38,7 +38,7 @@ class CustomizedTokenViewController: UIViewController, ICTokenFieldDelegate {
     super.loadView()
     view.backgroundColor = UIColor.white
     textView.text = "[\n\n]";
-    textView.font = UIFont.preferredFont(forTextStyle: UIFontTextStyleSubheadline)
+    textView.font = UIFont.preferredFont(forTextStyle: .subheadline)
     textView.frame = view.bounds.insetBy(dx: 10, dy: 10)
     textView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     view.addSubview(textView)
@@ -95,7 +95,7 @@ class CustomizedTokenViewController: UIViewController, ICTokenFieldDelegate {
 
   // MARK: - UIResponder Callbacks
 
-  @objc private func dismiss(_ sender: UIBarButtonItem) {
+  @objc fileprivate func dismiss(_ sender: UIBarButtonItem) {
     presentingViewController?.dismiss(animated: true, completion: nil)
   }
 

@@ -40,7 +40,7 @@ public class ICKeyboardDismissAccessoryView: UIView {
   /// The button to dismiss keyboard.
   public private(set) lazy var dismissButton: UIButton = {
     let _button = UIButton()
-    let resources = Bundle(for: self.dynamicType)
+    let resources = Bundle(for: type(of: self))
     let icon = UIImage(named: "icook-iphone-button-hide-keyboard", in: resources, compatibleWith: nil)
     _button.setImage(icon, for: UIControlState())
     _button.backgroundColor = Constants.ButtonColor
@@ -86,7 +86,7 @@ public class ICKeyboardDismissAccessoryView: UIView {
 
   // MARK: - NSKeyValueCoding
 
-  public override func setValue(_ value: AnyObject?, forUndefinedKey key: String) {
+  public override func setValue(_ value: Any?, forKey key: String) {
     if let color = value as? UIColor, key == "buttonColor" {
       buttonColor = color
     }

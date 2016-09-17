@@ -60,7 +60,7 @@ extension ICTokenField {
     textField.font = UIFont.boldSystemFont(ofSize: 14)
 
     attributedPlaceholder = NSAttributedString(
-      string: String(self.dynamicType),
+      string: String(describing: type(of: self)),
       attributes: [
         NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.5),
         NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14)
