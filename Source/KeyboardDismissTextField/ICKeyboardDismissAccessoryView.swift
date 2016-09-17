@@ -28,7 +28,7 @@ import UIKit
 
 /// A customized keyboard accessory view with a dismiss button.
 @IBDesignable
-public class ICKeyboardDismissAccessoryView: UIView {
+open class ICKeyboardDismissAccessoryView: UIView {
 
   /// The background color of the button to dismiss keyboard.
   @IBInspectable public var buttonColor: UIColor = Constants.ButtonColor {
@@ -73,7 +73,7 @@ public class ICKeyboardDismissAccessoryView: UIView {
 
   // MARK: - UIView
 
-  public override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
+  open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
     for subview in subviews {
       if !subview.isHidden && subview.alpha > 0 &&
           subview.isUserInteractionEnabled &&
@@ -86,7 +86,7 @@ public class ICKeyboardDismissAccessoryView: UIView {
 
   // MARK: - NSKeyValueCoding
 
-  public override func setValue(_ value: Any?, forKey key: String) {
+  open override func setValue(_ value: Any?, forKey key: String) {
     if let color = value as? UIColor, key == "buttonColor" {
       buttonColor = color
     }

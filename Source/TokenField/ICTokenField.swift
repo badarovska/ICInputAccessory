@@ -43,7 +43,7 @@ import UIKit
 
 /// A text field that groups input texts with delimiters.
 @IBDesignable
-public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelegate {
+open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelegate {
 
   // MARK: - Public Properties
 
@@ -130,7 +130,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
   }
 
   /// The tint color of icon image and text field.
-  public override var tintColor: UIColor! {
+  open override var tintColor: UIColor! {
     didSet {
       inputTextField.tintColor = tintColor
       leftView?.tintColor = tintColor
@@ -223,29 +223,29 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
 
   // MARK: - UIResponder
 
-  public override var isFirstResponder: Bool {
+  open override var isFirstResponder: Bool {
     return inputTextField.isFirstResponder || super.isFirstResponder
   }
 
-  public override func becomeFirstResponder() -> Bool {
+  open override func becomeFirstResponder() -> Bool {
     return inputTextField.becomeFirstResponder()
   }
 
-  public override func resignFirstResponder() -> Bool {
+  open override func resignFirstResponder() -> Bool {
     super.resignFirstResponder()
     return inputTextField.resignFirstResponder()
   }
 
   // MARK: - UIView
 
-  public override func layoutSubviews() {
+  open override func layoutSubviews() {
     super.layoutSubviews()
     layoutTokenTextField()
   }
 
   // MARK: - NSKeyValueCoding
 
-  public override func setValue(_ value: Any?, forKey key: String) {
+  open override func setValue(_ value: Any?, forKey key: String) {
     switch value {
     case let image as UIImage? where key == "icon":
       icon = image
@@ -262,23 +262,23 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
 
   // MARK: - UITextFieldDelegate
 
-  public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+  open func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
     tokens.forEach { $0.highlighted = false }
     return true
   }
 
-  public func textFieldDidBeginEditing(_ textField: UITextField) {
+  open func textFieldDidBeginEditing(_ textField: UITextField) {
     delegate?.tokenFieldDidBeginEditing?(self)
   }
 
-  public func textFieldDidEndEditing(_ textField: UITextField) {
+  open func textFieldDidEndEditing(_ textField: UITextField) {
     completeCurrentInputText()
     togglePlaceholderIfNeeded()
     tokens.forEach { $0.highlighted = false }
     delegate?.tokenFieldDidEndEditing?(self)
   }
 
-  public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+  open func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
     _ = removeHighlightedToken()  // as user starts typing when a token is focused
     inputTextField.showsCursor = true
 
@@ -307,7 +307,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
     return true
   }
 
-  public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+  open func textFieldShouldReturn(_ textField: UITextField) -> Bool {
     completeCurrentInputText()
     togglePlaceholderIfNeeded()
     delegate?.tokenFieldWillReturn?(self)
@@ -432,7 +432,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
   // MARK: - Public Methods
 
   /// Creates a token with the current input text.
-  public func completeCurrentInputText() {
+  open func completeCurrentInputText() {
     guard let text = inputTextField.text, !text.isEmpty else {
       return
     }
@@ -443,7 +443,7 @@ public class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDele
   }
 
   /// Removes the input text and all displayed tokens.
-  public func resetTokens() {
+  open func resetTokens() {
     inputTextField.text = nil
     tokens.removeAll()
     layoutTokenTextField()

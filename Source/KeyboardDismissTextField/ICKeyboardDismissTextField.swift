@@ -28,7 +28,7 @@ import UIKit
 
 /// A text field that has a button to dismiss keyboard on the input accessory view.
 @IBDesignable
-public class ICKeyboardDismissTextField: UITextField {
+open class ICKeyboardDismissTextField: UITextField {
 
   /// The custom input accessory view with a button to dismiss keyboard.
   @IBOutlet public var keyboardAccessoryView: ICKeyboardDismissAccessoryView! {
@@ -55,7 +55,7 @@ public class ICKeyboardDismissTextField: UITextField {
 
   // MARK: - UIResponder
 
-  public override func becomeFirstResponder() -> Bool {
+  open override func becomeFirstResponder() -> Bool {
     if UI_USER_INTERFACE_IDIOM() == .phone {
       keyboardAccessoryView.alpha = 1
     }
