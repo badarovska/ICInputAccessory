@@ -92,6 +92,16 @@ class CustomizedTokenViewController: UIViewController, ICTokenFieldDelegate {
     print("Delete: \"\(text)\"")
     updateTexts()
   }
+    
+  func tokenField(_ tokenField: ICTokenField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    print("Entered text: \"\(string)\"")
+    return true
+  }
+    
+  func tokenField(_ tokenField:ICTokenField, textDidChange: String) {
+    print("Search text: \"\(textDidChange)\"")
+  }
+    
 
   // MARK: - UIResponder Callbacks
 

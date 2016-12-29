@@ -38,6 +38,10 @@ import UIKit
   @objc optional func tokenField(_ tokenField: ICTokenField, didEnterText text: String)
   /// Tells the delegate that the token at certain index is removed from the token field.
   @objc optional func tokenField(_ tokenField: ICTokenField, didDeleteText text: String, atIndex index: Int)
+  /// Tells the delegate that the user changed the search text.
+  @objc optional func tokenField(_ tokenField: ICTokenField, textDidChange searchText: String)
+  //Asks the delegate if the specified text should be changed.
+  @objc optional func tokenField(_ tokenField: ICTokenField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool
 }
 
 
@@ -171,6 +175,7 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
     _textField.delegate = self
     _textField.backspaceDelegate = self
     _textField.addTarget(self, action: .togglePlaceholderIfNeeded, for: .allEditingEvents)
+    _textField.addTarget(self, action: .textDidChange, for: .editingChanged)
     return _textField
   }()
 
@@ -304,6 +309,11 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
         return false
       }
     }
+    
+    if let shouldChange = delegate?.tokenField?(self, shouldChangeCharactersIn: range, replacementString: string) {
+        return shouldChange
+    }
+    
     return true
   }
 
@@ -363,6 +373,12 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
   }
 
   // MARK: - Private Methods
+  
+  @objc fileprivate func textDidChange(_ tokenField: ICTokenField) {
+    if let text = textField.text {
+      delegate?.tokenField?(self, textDidChange: text)
+    }
+  }
 
   /// Returns true if any highlighted token is found and removed, otherwise false.
   private func removeHighlightedToken() -> Bool {
@@ -459,4 +475,5 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
 private extension Selector {
   static let togglePlaceholderIfNeeded = #selector(ICTokenField.togglePlaceholderIfNeeded(_:))
   static let handleTapGesture = #selector(ICTokenField.handleTapGesture(_:))
+  static let textDidChange = #selector(ICTokenField.textDidChange(_:))
 }
