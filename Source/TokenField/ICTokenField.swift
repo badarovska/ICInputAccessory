@@ -61,6 +61,8 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
   public var texts: [String] {
     return tokens.map { $0.text }
   }
+    
+  public var allowsDuplicates = true
 
   /// The image on the left of text field.
   @IBInspectable public var icon: UIImage? {
@@ -292,13 +294,17 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
     }
 
     let text = (input as NSString).replacingCharacters(in: range, with: string)
-
+    
     for delimiter in delimiters {
       if text.hasSuffix(delimiter) {
         let index = text.index(text.endIndex, offsetBy: -delimiter.characters.count)
         let newToken = text.substring(to: index)
         textField.text = nil
-
+        
+        if !allowsDuplicates && texts.contains(newToken) {
+          return false
+        }
+        
         if !newToken.isEmpty && newToken != delimiter {
           tokens.append(ICToken(text: newToken, normalAttributes: normalTokenAttributes, highlightedAttributes: highlightedTokenAttributes))
           layoutTokenTextField()
