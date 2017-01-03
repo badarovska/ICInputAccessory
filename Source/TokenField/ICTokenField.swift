@@ -466,6 +466,26 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
     togglePlaceholderIfNeeded()
   }
 
+  open func add(token: String) {
+    textField.text = nil
+      tokens.append(ICToken(text: token, normalAttributes: normalTokenAttributes, highlightedAttributes: highlightedTokenAttributes))
+      layoutTokenTextField()
+      togglePlaceholderIfNeeded()
+      delegate?.tokenField?(self, didEnterText: token)
+  }
+    
+  open func remove(token: String) {
+    for (index, icToken) in tokens.enumerated() {
+        if icToken.text == token {
+            tokens.remove(at: index)
+            layoutTokenTextField()
+            togglePlaceholderIfNeeded()
+            inputTextField.showsCursor = true
+            delegate?.tokenField?(self, didDeleteText: icToken.text, atIndex: index)
+        }
+    }
+  }
+
 }
 
 
