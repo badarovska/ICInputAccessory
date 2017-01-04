@@ -473,11 +473,13 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
   }
 
   open func add(token: String) {
-    textField.text = nil
-      tokens.append(ICToken(text: token, normalAttributes: normalTokenAttributes, highlightedAttributes: highlightedTokenAttributes))
-      layoutTokenTextField()
-      togglePlaceholderIfNeeded()
-      delegate?.tokenField?(self, didEnterText: token)
+    if token != "" && (allowsDuplicates || !texts.contains(token)) {
+        textField.text = nil
+        tokens.append(ICToken(text: token, normalAttributes: normalTokenAttributes, highlightedAttributes: highlightedTokenAttributes))
+        layoutTokenTextField()
+        togglePlaceholderIfNeeded()
+        delegate?.tokenField?(self, didEnterText: token)
+    }
   }
     
   open func remove(token: String) {
