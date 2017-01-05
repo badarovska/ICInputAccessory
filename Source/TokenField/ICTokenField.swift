@@ -61,6 +61,8 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
   public var texts: [String] {
     return tokens.map { $0.text }
   }
+    
+  public var allowsDuplicates = true
 
   /// The image on the left of text field.
   @IBInspectable public var icon: UIImage? {
@@ -292,13 +294,17 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
     }
 
     let text = (input as NSString).replacingCharacters(in: range, with: string)
-
+    
     for delimiter in delimiters {
       if text.hasSuffix(delimiter) {
         let index = text.index(text.endIndex, offsetBy: -delimiter.characters.count)
         let newToken = text.substring(to: index)
         textField.text = nil
-
+        
+        if !allowsDuplicates && texts.contains(newToken) {
+          return false
+        }
+        
         if !newToken.isEmpty && newToken != delimiter {
           tokens.append(ICToken(text: newToken, normalAttributes: normalTokenAttributes, highlightedAttributes: highlightedTokenAttributes))
           layoutTokenTextField()
@@ -464,6 +470,28 @@ open class ICTokenField: UIView, UITextFieldDelegate, ICBackspaceTextFieldDelega
     tokens.removeAll()
     layoutTokenTextField()
     togglePlaceholderIfNeeded()
+  }
+
+  open func add(token: String) {
+    if token != "" && (allowsDuplicates || !texts.contains(token)) {
+        textField.text = nil
+        tokens.append(ICToken(text: token, normalAttributes: normalTokenAttributes, highlightedAttributes: highlightedTokenAttributes))
+        layoutTokenTextField()
+        togglePlaceholderIfNeeded()
+        delegate?.tokenField?(self, didEnterText: token)
+    }
+  }
+    
+  open func remove(token: String) {
+    for (index, icToken) in tokens.enumerated() {
+        if icToken.text == token {
+            tokens.remove(at: index)
+            layoutTokenTextField()
+            togglePlaceholderIfNeeded()
+            inputTextField.showsCursor = true
+            delegate?.tokenField?(self, didDeleteText: icToken.text, atIndex: index)
+        }
+    }
   }
 
 }
